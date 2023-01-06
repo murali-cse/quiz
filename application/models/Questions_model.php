@@ -24,4 +24,25 @@ class Questions_model extends CI_Model {
         return $res->result_array();
     }
 
+    public function get_single_answer($testid, $id){
+        $res = $this->db->select('correctans')->from('questions')->where(['testid' => $testid, 'id' => $id ])->get();
+        return $res->result_array();
+    }
+
+    public function insert_winner($data){
+        $res = $this->db->insert('quiz',$data);
+        return $res;
+    }
+
+    public function update_winner($testid,$data){
+        $this->db->where('testid',$testid);
+        $res = $this->db->update('quiz',$data);
+        return $res;
+    }
+
+    public function check_quiz($testid){
+        $res = $this->db->select("*")->from('quiz')->where('testid',$testid)->get();
+        return $res->result_array();
+    }
+
 }

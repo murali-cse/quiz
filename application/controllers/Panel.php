@@ -148,9 +148,18 @@ class Panel extends CI_Controller {
 
 		$current_quest++;
 		if($total_questions > $current_quest){
-			$data = [ 'res' => $res[$current_quest], 'id'=>$id, 'current_quest' => $current_quest ];
+			$winner = rand(1,2);
 
-			$ans = $this->input->post('answer');
+			if($winner == 1){
+				$winner = 'A';
+			}
+			else {
+				$winner = 'B';
+			}
+
+			$this->session->set_userdata('winner', $winner);
+
+			$data = [ 'res' => $res[$current_quest], 'id'=>$id, 'current_quest' => $current_quest];
 
 			$this->load->view('header');
 			$this->load->view('quiz',$data);
@@ -161,6 +170,71 @@ class Panel extends CI_Controller {
 			$this->load->view('quiz_result');
 			$this->load->view('footer');
 		}
+	}
+
+	public function check_answer(){
+
+		$testid = $this->input->post('testid');
+		$id = $this->input->post('id');
+		$ans = $this->input->post('ans');
+
+		$result = $this->Questions_model->get_single_answer($testid, $id);
+
+		if($ans == $result[0]['correctans']){
+			// check quiz 
+			$quiz = $this->Questions_model->check_quiz($testid);
+
+			if(count($quiz) > 0){
+				if($this->session->winner == "A"){
+					$score = (int)$quiz['a'];
+					$score++;
+					$data = [
+						'a' => "$score",
+					];
+					$this->Questions_model->update_winner($testid,$data);
+				}
+				else {
+					$score = (int)$quiz['b'];
+					$score++;
+					$data = [
+						'b' => "$score",
+					];
+					$this->Questions_model->update_winner($testid,$data);
+				}
+			}
+			else {
+				if($this->session->winner == "A"){
+					$data = [
+						'testid' => $testid,
+						'a' => '1',
+						'b' => '0',
+					];
+					$this->Questions_model->insert_winner($data);
+				}
+				else {
+					$data = [
+						'testid' => $testid,
+						'a' => '0',
+						'b' => '1',
+					];
+					$this->Questions_model->insert_winner($data);
+				}
+			}
+			echo 1;
+		}
+		else {
+			if($_SESSION['winner'] == "A"){
+				$_SESSION['winner'] = 'B';
+			}
+			else {
+				$_SESSION['winner'] = 'A';
+			}
+
+			echo $_SESSION['winner'];
+
+			echo 0;
+		}
+
 
 		
 	}
