@@ -77,5 +77,57 @@ class Register extends CI_Controller {
 			
 		
 	}
+
+	public function student_register(){
+
+		$fname = $this->input->post('fname');
+		$lname = $this->input->post('lname');
+		$student_id = $this->input->post('studentid');
+		$pass = $this->input->post('password');
+
+		$data = [
+			'firstname' => $fname,
+			'lastname' => $lname,
+			'studentid' => $student_id,
+			'pass' => md5($pass)
+		];
+
+		$res= $this->Auth_model->student_register($data);
+
+		if($res){
+			redirect('login/student');
+		}
+		else {
+			redirect('register/student');
+		}
+	}
+
+	public function student_login(){
+		$student_id = $this->input->post('studentid');
+		$pass = $this->input->post('password');
+
+		$data = [
+			'studentid' => $student_id,
+			'pass' => md5($pass),
+		];
+
+		$res= $this->Auth_model->student_login($data);
+
+	
+		if(count($res) == 0){
+			$this->session->set_flashdata('message', 'Email/Password is incorrect');
+			$this->session->set_flashdata('error', true);
+			redirect('login/student');
+		}
+		else {
+			$this->session->set_userdata('id', $res[0]['id']);
+			$this->session->set_userdata('firstname', $res[0]['firstname']);
+			$this->session->set_userdata('lastname', $res[0]['lastname']);
+			$this->session->set_userdata('studentid', $res[0]['studentid']);
+			$this->session->set_userdata('usertype', 'student');
+			redirect('panel/student');
+		}
+
+	}
 	
 }

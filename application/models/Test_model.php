@@ -15,6 +15,7 @@ class Test_model extends CI_Model {
         $res = $this->db->select("*")->from('tests')->get();
 
         return $res->result_array();
+        // return null;
     }
 
     public function update_test($id,$data){

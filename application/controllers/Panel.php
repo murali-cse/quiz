@@ -15,8 +15,15 @@ class Panel extends CI_Controller {
 	}
 
 	public function student(){
+
+		$test = $this->Test_model->get_test();
+
+		$data = [
+			'res' => $test
+		];
+
 		$this->load->view('header');
-		$this->load->view('student_panel');
+		$this->load->view('student_panel',$data);
 		$this->load->view('footer');
 	}
 
@@ -28,9 +35,17 @@ class Panel extends CI_Controller {
 			'res' => $res
 		];
 
-		$this->load->view('header');
-		$this->load->view('admin_panel',$data);
-		$this->load->view('footer');
+		// session 
+		$usertype = $this->session->usertype;
+		if($usertype=='admin'){
+			$this->load->view('header');
+			$this->load->view('admin_panel',$data);
+			$this->load->view('footer');
+		}
+		else {
+			redirect('/');
+		}
+
 	}
 
 	public function questions($id){
@@ -38,17 +53,116 @@ class Panel extends CI_Controller {
 		// get questions 
 		$res = $this->Questions_model->get_questions($id);
 
-		$data = [ 'res' => $res ];
+		$data = [ 'res' => $res, 'id'=>$id ];
 
 		$this->load->view('header');
 		$this->load->view('questions',$data);
 		$this->load->view('footer');
 	}
 
-	public function student_test($id){
+	public function add_question($id){
+
+		$data = [
+			'id' => $id
+		];
+
 		$this->load->view('header');
-		$this->load->view('student_questions');
+		$this->load->view('add_question', $data);
 		$this->load->view('footer');
+	}
+
+	public function insertqest($id){
+		$quest = $this->input->post('question');
+		$ans = $this->input->post('answers');
+		$correct_ans = $this->input->post('correctans');
+
+		$data = [
+			'testid'=> $id,
+			'question' => $quest,
+			'options' => $ans,
+			'correctans' => $correct_ans
+		];
+
+		$this->Questions_model->add_questions($data);
+
+		redirect("panel/questions/$id");
+	}
+
+	public function student_test($id){
+
+		$quest = $this->Questions_model->get_test_questions($id);
+
+		$data = [
+			'id' => $id,
+			'res' => $quest
+		];
+
+		$this->load->view('header');
+		$this->load->view('student_questions', $data);
+		$this->load->view('footer');
+	}
+
+	public function student_ans($id){
+		$form = $this->input->post();
+		$res = $this->Questions_model->get_test_answers($id);
+
+		$correct_answer = 0;
+		foreach($form as $key=>$value){
+			foreach($res as $result){
+				if($result['id'] == $key && $result['correctans'] == $value){
+					$correct_answer++;
+					continue;
+				}
+			}
+			
+		}
+		$incorrect_answer = count($form)-$correct_answer;
+
+		$data = [
+			'correct_ans'=> $correct_answer,
+			'incorrect_ans'=> $incorrect_answer
+		];
+	
+		$this->load->view('header');
+		$this->load->view('student_answers',$data);
+		$this->load->view('footer');
+	}
+
+	public function select_questions(){
+		$test = $this->Test_model->get_test();
+
+		$data = [
+			'res' => $test
+		];
+		$this->load->view('header');
+		$this->load->view('select_question',$data);
+		$this->load->view('footer');
+	}
+
+	public function quiz($id,$current_quest=-1){
+
+		//get questions
+		$res = $this->Questions_model->get_questions($id);
+
+		$total_questions = count($res);
+
+		$current_quest++;
+		if($total_questions > $current_quest){
+			$data = [ 'res' => $res[$current_quest], 'id'=>$id, 'current_quest' => $current_quest ];
+
+			$ans = $this->input->post('answer');
+
+			$this->load->view('header');
+			$this->load->view('quiz',$data);
+			$this->load->view('footer');
+		}
+		else {
+			$this->load->view('header');
+			$this->load->view('quiz_result');
+			$this->load->view('footer');
+		}
+
+		
 	}
 
 	public function add_test(){
@@ -84,6 +198,11 @@ class Panel extends CI_Controller {
 		if($res){
 			redirect('panel/admin');
 		}
+	}
+
+	public function logout(){
+		$this->session->sess_destroy();
+		redirect('/');
 	}
 
 	

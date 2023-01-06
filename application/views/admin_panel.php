@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">Dashboard</span>
-        <a href="<?php echo base_url('/') ?>" style="text-decoration:none">
+        <a href="<?php echo base_url('panel/logout') ?>" style="text-decoration:none">
             <button class="btn btn-outline-success" type="submit">Logout</button>
         </a>
     </div>
@@ -33,7 +33,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        <button type="button" class="btn btn-primary" onclick="closeModal()">Yes</button>
+                        <a href="<?php echo base_url('panel/select_questions') ?>" style="text-decoration: none">
+                            <button type="button" class="btn btn-primary">Yes</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -122,7 +124,8 @@
                         <td class="text-center align-middle text-capitalize"><?php echo $result['teachername'] ?></td>
                         <td class="text-center">
                             <div class="d-flex gap-1 justify-content-center">
-                                <a href="<?php echo base_url('panel/questions/1') ?>" style="text-decoration:none">
+                                <a href="<?php echo base_url('panel/questions/'.$result['id']) ?>"
+                                    style="text-decoration:none">
                                     <button class="btn btn-primary"> View </button>
                                 </a>
                                 <button class="btn btn-secondary"

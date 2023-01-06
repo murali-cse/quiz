@@ -52,6 +52,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['panel/student_test/:id'] = 'panel/student_test';
 $route['panel/questions/:id'] = 'panel/questions';
+$route['panel/add_question/:id'] = 'panel/add_question';
+$route['panel/insertqest/:id'] = 'panel/insertqest';
+$route['panel/student_ans/:id'] = 'panel/student_ans';
+$route['panel/quiz/:id/:current_quest'] = 'panel/quiz';
+
 
 
 $route['404_override'] = '';

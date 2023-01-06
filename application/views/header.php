@@ -17,6 +17,8 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
 
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
 </head>
