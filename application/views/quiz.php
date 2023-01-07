@@ -30,8 +30,9 @@
                 <div class="mt-5">
                     <h6 id="turns">Team <?php echo $this->session->userdata('winner') ?> Turns...</h6>
                 </div>
+                <input type="text" id="batch" name="batch" style="display:none">
                 <div class="d-flex gap-3 mt-3">
-                    <button type="button" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
+                    <button type="button" id="submitbtn" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
                     <button class="btn btn-success">Next Question</button>
                 </div>
             </form>
@@ -42,15 +43,13 @@
                 <div class="card-body">
                     <table class="table">
                         <thead>
-                            <th>Q No</th>
                             <th>A</th>
                             <th>B</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td id="ascore"><?php echo $a ?></td>
+                                <td id="bscore"><?php echo $b ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -98,9 +97,20 @@
 <script>
 $(function() {
 
-    let elem = $('#tose')
-    let modal = new bootstrap.Modal(elem)
-    modal.show()
+    let url = window.location.href.split('/')
+
+    if (url.length == 7) {
+
+        localStorage.setItem('testid', '<?php echo $res['testid'] ?>')
+
+        let elem = $('#tose')
+        let modal = new bootstrap.Modal(elem)
+        modal.show()
+    }
+
+
+    let batch = localStorage.getItem('batch')
+    $('#batch').val(batch)
 
 })
 
@@ -113,16 +123,25 @@ function wrongAnswer() {
 function checkAnswer() {
     let val = $(':radio:checked').val();
 
+    let batch = localStorage.getItem('batch')
+
     let data = {
         testid: '<?php echo $res['testid'] ?>',
         id: '<?php echo $res['id'] ?>',
-        ans: val
+        ans: val,
+        batch: batch
     }
 
     $.post('<?php echo base_url('panel/check_answer') ?>', data, function(data, status) {
-        if (data == 0) {
-            $('#turns').text('<?php echo "Team ".$_SESSION['winner']." turns..." ?>')
+
+        data = JSON.parse(data)
+
+        if (data.response == 0) {
+            $('#turns').text("Team " + data.turns + " Turns...")
             wrongAnswer();
+        } else {
+            $('#turns').text(data.turns + ' is winner');
+            $('#submitbtn').hide()
         }
     })
 }

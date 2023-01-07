@@ -11,9 +11,13 @@
 <div class="h-50 container d-flex justify-content-center align-items-center">
     <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-            <h4 class="pb-3 text-capitalize">Choose Quiz</h4>
+            <h4 class="pb-3 text-capitalize text-center">Choose Quiz</h4>
+            <div class="mb-3 ">
+                <label for="batchName" class="form-label">Batch Name</label>
+                <input type="text" class="form-control" id="batchName" aria-describedby="batch name" id="batchName">
+            </div>
             <select id="selectedTest" class="form-select">
-                <option selected>Select Test</option>
+                <option selected>Select Quiz</option>
                 <?php foreach($res as $result){ ?>
                 <option value='<?php echo $result['id'] ?>'><?php echo $result['testname'] ?></option>
                 <?php } ?>
@@ -50,15 +54,30 @@
 <script>
 function startTest() {
     let val = $('#selectedTest').find(':selected').val()
-    if (val != "Select Test") {
+    let batchName = $('#batchName').val()
+
+    if (val != "Select Test" && batchName) {
         window.location.href = '<?php echo base_url('panel/quiz/') ?>' + val
     }
+
 
 }
 
 function showModal() {
-    let elem = $('#confirmModal')
-    let modal = new bootstrap.Modal(elem)
-    modal.show()
+
+    let val = $('#selectedTest').find(':selected').val()
+    let batchName = $('#batchName').val()
+
+    if (val != "Select Test" && batchName) {
+
+        localStorage.setItem('batch', batchName)
+
+        let elem = $('#confirmModal')
+        let modal = new bootstrap.Modal(elem)
+        modal.show()
+    }
+
+
+
 }
 </script>

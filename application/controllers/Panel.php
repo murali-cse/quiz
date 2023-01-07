@@ -11,7 +11,17 @@ class Panel extends CI_Controller {
 
 	public function index()
 	{
-		redirect('/welcome');
+
+		$usertype = $this->session->userdata('usertype');
+		if($usertype == 'admin'){
+			redirect('panel/admin');
+		}
+		else if($usertype == 'student') {
+			redirect('panel/student');
+		}
+		else {
+			redirect('/welcome');
+		}
 	}
 
 	public function student(){
@@ -22,9 +32,18 @@ class Panel extends CI_Controller {
 			'res' => $test
 		];
 
-		$this->load->view('header');
-		$this->load->view('student_panel',$data);
-		$this->load->view('footer');
+		// session
+		$usertype= $this->session->usertype;
+		if($usertype == 'student'){
+			$this->load->view('header');
+			$this->load->view('student_panel',$data);
+			$this->load->view('footer');
+		}
+		else {
+			redirect('/');
+		}
+
+		
 	}
 
 	public function admin(){
@@ -139,10 +158,17 @@ class Panel extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	public function quiz($id,$current_quest=-1){
+	public function quiz($id=-1,$current_quest=-1){
+
+		if($id== -1){
+			redirect('panel/admin');
+		}
 
 		//get questions
 		$res = $this->Questions_model->get_questions($id);
+
+		// batch
+		$batch = $this->input->post('batch');
 
 		$total_questions = count($res);
 
@@ -159,7 +185,18 @@ class Panel extends CI_Controller {
 
 			$this->session->set_userdata('winner', $winner);
 
-			$data = [ 'res' => $res[$current_quest], 'id'=>$id, 'current_quest' => $current_quest];
+			$points = $this->Questions_model->get_points([
+				'testid' =>$res[$current_quest]['testid'],
+				'batch' => $batch,
+			]);
+
+			$data = [ 
+				'res' => $res[$current_quest],
+				'id'=>$id,
+				'current_quest' => $current_quest,
+				'a' => $points[0]['a'] ?? 0,
+				'b'=> $points[0]['b'] ?? 0
+			];
 
 			$this->load->view('header');
 			$this->load->view('quiz',$data);
@@ -172,40 +209,81 @@ class Panel extends CI_Controller {
 		}
 	}
 
+	public function get_result(){
+
+		$testid = $this->input->post('testid');
+		$batch = $this->input->post('batch');
+
+		$points = $this->Questions_model->get_points([
+			'testid' =>$testid,
+			'batch' => $batch,
+		]);
+		
+		$a = 0;
+		$b = 0;
+
+		foreach($points as $point){
+			$a+=(int)$point['a'];
+			$b+=(int)$point['b'];
+		}
+
+		$data = [
+			'winner' => $a > $b ? 'A' : 'B'
+		];
+
+		echo json_encode($data);
+		
+	}
+
 	public function check_answer(){
 
 		$testid = $this->input->post('testid');
 		$id = $this->input->post('id');
 		$ans = $this->input->post('ans');
+		$batch = $this->input->post('batch');
 
 		$result = $this->Questions_model->get_single_answer($testid, $id);
+
 
 		if($ans == $result[0]['correctans']){
 			// check quiz 
 			$quiz = $this->Questions_model->check_quiz($testid);
 
 			if(count($quiz) > 0){
-				if($this->session->winner == "A"){
-					$score = (int)$quiz['a'];
-					$score++;
-					$data = [
-						'a' => "$score",
-					];
-					$this->Questions_model->update_winner($testid,$data);
-				}
-				else {
-					$score = (int)$quiz['b'];
-					$score++;
-					$data = [
-						'b' => "$score",
-					];
-					$this->Questions_model->update_winner($testid,$data);
-				}
+					if($this->session->winner == "A"){
+						$score = (int)$quiz[0]['a'];
+						$score++;
+	
+						$where=[
+							'testid'=> $testid,
+							'batch'=>$batch
+						];
+	
+						$data = [
+							'a' => "$score",
+						];
+						$this->Questions_model->update_winner($where,$data);
+					}
+					else {
+						$score = (int)$quiz[0]['b'];
+						$score++;
+						
+						$where=[
+							'testid'=> $testid,
+							'batch'=>$batch
+						];
+
+						$data = [
+							'b' => "$score",
+						];
+						$this->Questions_model->update_winner($where,$data);
+					}	
 			}
 			else {
 				if($this->session->winner == "A"){
 					$data = [
 						'testid' => $testid,
+						'batch'=> $batch,
 						'a' => '1',
 						'b' => '0',
 					];
@@ -214,25 +292,39 @@ class Panel extends CI_Controller {
 				else {
 					$data = [
 						'testid' => $testid,
+						'batch'=> $batch,
 						'a' => '0',
 						'b' => '1',
 					];
 					$this->Questions_model->insert_winner($data);
 				}
 			}
-			echo 1;
+
+			$winner = $this->session->winner;
+
+			$out = [
+				'turns' => $winner,
+				'response' => 1,
+			];
+			echo json_encode($out);
+			
 		}
 		else {
-			if($_SESSION['winner'] == "A"){
-				$_SESSION['winner'] = 'B';
+			if($this->session->userdata('winner') == "A"){
+				$this->session->set_userdata('winner', 'B');
 			}
 			else {
-				$_SESSION['winner'] = 'A';
+				$this->session->set_userdata('winner', 'A');
 			}
 
-			echo $_SESSION['winner'];
+			$winner = $this->session->winner;
 
-			echo 0;
+			$out = [
+				'turns' => $winner,
+				'response' => 0,
+			];
+			echo json_encode($out);
+			
 		}
 
 

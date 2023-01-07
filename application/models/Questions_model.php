@@ -34,8 +34,8 @@ class Questions_model extends CI_Model {
         return $res;
     }
 
-    public function update_winner($testid,$data){
-        $this->db->where('testid',$testid);
+    public function update_winner($where,$data){
+        $this->db->where($where);
         $res = $this->db->update('quiz',$data);
         return $res;
     }
@@ -44,5 +44,11 @@ class Questions_model extends CI_Model {
         $res = $this->db->select("*")->from('quiz')->where('testid',$testid)->get();
         return $res->result_array();
     }
+
+    public function get_points($where){
+        $res = $this->db->select("*")->from('quiz')->where($where)->get();
+        return $res->result_array();
+    }
+
 
 }
