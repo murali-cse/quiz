@@ -40,8 +40,14 @@ class Questions_model extends CI_Model {
         return $res;
     }
 
-    public function check_quiz($testid){
-        $res = $this->db->select("*")->from('quiz')->where('testid',$testid)->get();
+    public function check_quiz($testid,$batch){
+
+        $data = [
+            'testid' => $testid,
+            'batch' => $batch
+        ];
+
+        $res = $this->db->select("*")->from('quiz')->where($data)->get();
         return $res->result_array();
     }
 

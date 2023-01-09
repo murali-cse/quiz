@@ -244,10 +244,9 @@ class Panel extends CI_Controller {
 
 		$result = $this->Questions_model->get_single_answer($testid, $id);
 
-
 		if($ans == $result[0]['correctans']){
 			// check quiz 
-			$quiz = $this->Questions_model->check_quiz($testid);
+			$quiz = $this->Questions_model->check_quiz($testid, $batch);
 
 			if(count($quiz) > 0){
 					if($this->session->winner == "A"){
@@ -280,6 +279,7 @@ class Panel extends CI_Controller {
 					}	
 			}
 			else {
+						
 				if($this->session->winner == "A"){
 					$data = [
 						'testid' => $testid,
@@ -306,8 +306,7 @@ class Panel extends CI_Controller {
 				'turns' => $winner,
 				'response' => 1,
 			];
-			echo json_encode($out);
-			
+			echo json_encode($out);	
 		}
 		else {
 			if($this->session->userdata('winner') == "A"){
@@ -326,9 +325,6 @@ class Panel extends CI_Controller {
 			echo json_encode($out);
 			
 		}
-
-
-		
 	}
 
 	public function add_test(){

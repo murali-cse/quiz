@@ -101,10 +101,9 @@ $(function() {
 
     console.log(url.length)
 
-    if (url.length == 6) {
+    if (url.length == 6 || url.length == 7) {
 
         localStorage.setItem('testid', '<?php echo $res['testid'] ?>')
-
         let elem = $('#tose')
         let modal = new bootstrap.Modal(elem)
         modal.show()
