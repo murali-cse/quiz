@@ -99,7 +99,9 @@ $(function() {
 
     let url = window.location.href.split('/')
 
-    if (url.length == 7) {
+    console.log(url.length)
+
+    if (url.length == 6) {
 
         localStorage.setItem('testid', '<?php echo $res['testid'] ?>')
 
