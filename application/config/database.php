@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '51.222.48.180',
 	'username' => 'quizgame_db',
 	'password' => 'quizgamescore',
 	'database' => 'quizgame_db',
