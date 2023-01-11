@@ -7,17 +7,22 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="row mt-5 mb-2">
-        <div class="text-center">
-            <h4>Result is</h4>
-            <div class="mt-4">
-                <h5>Correct answer : <?php echo $correct_ans; ?></h5>
-                <h5>Incorrect answer : <?php echo $incorrect_ans; ?></h5>
+<div class="solo-background">
+    <div class="container h-100">
+        <div class="row pt-5 mb-2">
+            <div class="text-center">
+                <div class="welcome-card p-5">
+                    <h4>Result is</h4>
+                    <div class="mt-4">
+                        <h5>Correct answer : <?php echo $correct_ans; ?></h5>
+                        <h5>Incorrect answer : <?php echo $incorrect_ans; ?></h5>
+                    </div>
+                    <a href="<?php echo base_url('panel/student') ?>">
+                        <button class="btn btn-primary mt-3">Go to Home</button>
+                    </a>
+                </div>
+
             </div>
-            <a href="<?php echo base_url('panel/student') ?>">
-                <button class="btn btn-primary mt-3">Go to Home</button>
-            </a>
         </div>
     </div>
 </div>

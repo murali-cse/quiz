@@ -1,11 +1,13 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12 mt-5 text-center">
-            <h4>Thanks for attending the Quiz</h4>
-            <h1 class="mt-3">THE WINNER IS <span id="winner"></span> TEAM</h1>
-            <a href="<?php echo base_url('panel/admin') ?>" style="text-decoration: none">
-                <button class="btn btn-primary mt-3">Back To Home</button>
-            </a>
+<div class="gq-background">
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-12 mt-5 text-center welcome-card p-5">
+                <h4>Thanks for attending the Quiz</h4>
+                <h1 class="mt-3">THE WINNER IS <span id="winner"></span> TEAM</h1>
+                <a href="<?php echo base_url('panel/admin') ?>" style="text-decoration: none">
+                    <button class="btn btn-primary mt-3">Back To Home</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -7,43 +7,46 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="row mt-5 mb-2">
-        <div class="d-flex justify-content-between">
+<div class='solo-background'>
+    <div class="container h-100 ">
+        <div class="row pt-5 mb-2">
+            <div class="d-flex justify-content-between">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <form action="<?php echo base_url('panel/student_ans/'.$id) ?>" method="post" id="questform">
-            <?php foreach($res as $result => $index ){ ?>
-            <div class="col-12 mb-5">
-                <div>
-                    <h4><?php echo (int)($result+1).". ".$res[$result]['question'] ?></h4>
-                    <div class='row mt-3'>
-                        <?php 
-                            $options = json_decode($res[$result]['options']);
-                            foreach($options as $option=>$index){
-                        ?>
-                        <div class="col-lg-3 col-md-3  mt-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="<?php echo $res[$result]['id'] ?>"
-                                    id="flexRadioDefault<?php echo $option."-".$result ?>"
-                                    value="<?php echo $options[$option] ?>">
-                                <label class="form-check-label" for="flexRadioDefault<?php echo $option ?>">
-                                    <?php echo $options[$option] ?>
-                                </label>
+        <div class="row welcome-card p-5">
+            <form action="<?php echo base_url('panel/student_ans/'.$id) ?>" method="post" id="questform">
+                <?php foreach($res as $result => $index ){ ?>
+                <div class="col-12 mb-5">
+                    <div>
+                        <h4><?php echo (int)($result+1).". ".$res[$result]['question'] ?></h4>
+                        <div class='row mt-3'>
+                            <?php 
+                                $options = json_decode($res[$result]['options']);
+                                foreach($options as $option=>$index){
+                            ?>
+                            <div class="col-lg-3 col-md-3  mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                        name="<?php echo $res[$result]['id'] ?>"
+                                        id="flexRadioDefault<?php echo $option."-".$result ?>"
+                                        value="<?php echo $options[$option] ?>">
+                                    <label class="form-check-label" for="flexRadioDefault<?php echo $option ?>">
+                                        <?php echo $options[$option] ?>
+                                    </label>
+                                </div>
                             </div>
+                            <?php } ?>
                         </div>
-                        <?php } ?>
                     </div>
                 </div>
-            </div>
-            <?php } ?>
-            <div class="d-flex justify-content-center mt-5">
-                <button class="btn btn-primary w-25">
-                    SUBMIT
-                </button>
-            </div>
-        </form>
+                <?php } ?>
+                <div class="d-flex justify-content-center mt-5">
+                    <button class="btn btn-primary w-25">
+                        SUBMIT
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

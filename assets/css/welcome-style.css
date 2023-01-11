@@ -3,3 +3,38 @@
 	cursor: pointer;
 	border-width: 2px;
 }
+
+.welcome-background {
+	background-image: url(/quiz/assets/image/baseball1.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.welcome-card {
+	background-color: rgba(255, 255, 255, 0.85);
+	border-radius: 0.2rem;
+}
+
+.signup-background {
+	background-image: url(/quiz/assets/image/bb2.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.dashboard-background {
+	background-image: url(/quiz/assets/image/bb5.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.gq-background {
+	background-image: url(/quiz/assets/image/bb3.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.solo-background {
+	background-image: url(/quiz/assets/image/bb4.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}

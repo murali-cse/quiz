@@ -8,24 +8,27 @@
 </nav>
 
 
-<div class="h-50 container d-flex justify-content-center align-items-center">
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-            <h4 class="pb-3 text-capitalize text-center">Choose Quiz</h4>
-            <div class="mb-3 ">
-                <label for="batchName" class="form-label">Batch Name</label>
-                <input type="text" class="form-control" id="batchName" aria-describedby="batch name" id="batchName">
-            </div>
-            <select id="selectedTest" class="form-select">
-                <option selected>Select Quiz</option>
-                <?php foreach($res as $result){ ?>
-                <option value='<?php echo $result['id'] ?>'><?php echo $result['testname'] ?></option>
-                <?php } ?>
-            </select>
-            <div class="text-center mt-4">
-                <button class="btn btn-primary <?php echo count($res) == 0 ? 'disabled' : '' ?>" onclick="showModal()">
-                    Begin Test
-                </button>
+<div class="gq-background">
+    <div class="container d-flex justify-content-center align-items-center" style="height:95%">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 welcome-card p-5">
+                <h4 class="pb-3 text-capitalize text-center">Choose Quiz</h4>
+                <div class="mb-3 ">
+                    <label for="batchName" class="form-label">Batch Name</label>
+                    <input type="text" class="form-control" id="batchName" aria-describedby="batch name" id="batchName">
+                </div>
+                <select id="selectedTest" class="form-select">
+                    <option selected>Select Quiz</option>
+                    <?php foreach($res as $result){ ?>
+                    <option value='<?php echo $result['id'] ?>'><?php echo $result['testname'] ?></option>
+                    <?php } ?>
+                </select>
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary <?php echo count($res) == 0 ? 'disabled' : '' ?>"
+                        onclick="showModal()">
+                        Begin Test
+                    </button>
+                </div>
             </div>
         </div>
     </div>
