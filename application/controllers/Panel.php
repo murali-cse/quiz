@@ -34,6 +34,8 @@ class Panel extends CI_Controller {
 
 		// session
 		$usertype= $this->session->usertype;
+
+		
 		if($usertype == 'student'){
 			$this->load->view('header');
 			$this->load->view('student_panel',$data);
