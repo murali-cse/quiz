@@ -73,12 +73,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+// production 
+// $hostname = '51.222.48.180';
+// $username = 'quizgame_db';
+// $password = 'quizgamescore';
+// $database = 'quizgame_db';
+
+// development
+$hostname = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'quiz';
+
+
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '51.222.48.180',
-	'username' => 'quizgame_db',
-	'password' => 'quizgamescore',
-	'database' => 'quizgame_db',
+	'hostname' => $hostname,
+	'username' => $username,
+	'password' => $password,
+	'database' => $database,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
