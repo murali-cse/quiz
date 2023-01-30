@@ -12,7 +12,7 @@
             <div class="row mb-3 mt-5">
                 <div class="d-flex justify-content-between">
                     <button type="button" class="btn btn-primary" onclick="openTeamModal()">
-                        Team Quiz
+                        Let's Play
                     </button>
                     <button type="button" class="btn btn-warning" onclick="showModal()">
                         Add New Test
