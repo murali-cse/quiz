@@ -5,7 +5,7 @@
 }
 
 .welcome-background {
-	background-image: url(/assets/image/baseball1.jpeg);
+	background-image: url(/quiz/assets/image/baseball1.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -16,19 +16,19 @@
 }
 
 .signup-background {
-	background-image: url(/assets/image/bb2.jpeg);
+	background-image: url(/quiz/assets/image/bb2.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
 .dashboard-background {
-	background-image: url(/assets/image/bb5.jpeg);
+	background-image: url(/quiz/assets/image/bb5.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
 .gq-background {
-	background-image: url(/assets/image/bb3.jpeg);
+	background-image: url(/quiz/assets/image/bb3.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }

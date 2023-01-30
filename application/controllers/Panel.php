@@ -229,11 +229,77 @@ class Panel extends CI_Controller {
 			$b+=(int)$point['b'];
 		}
 
+		$winner= '';
+
+		if($a == $b){
+			$winner = 'draw';
+		}
+		else if($a > $b){
+			$winner = 'A';
+		}
+		else if($a < $b){
+			$winner = 'B';
+		}
+
 		$data = [
-			'winner' => $a > $b ? 'A' : 'B'
+			'winner' => $winner
 		];
 
 		echo json_encode($data);
+		
+	}
+
+	public function correct_ans(){
+
+		$id = $this->input->get('id');
+		$testid = $this->input->get('testid');
+
+		$result = $this->Questions_model->get_single_answer($testid,$id);
+
+		echo json_encode($result[0]['correctans']);
+	}
+
+	public function reduce(){
+		$testid = $this->input->get('testid');
+		$batch = $this->input->get('batch');
+		$team = $this->input->get('team');
+
+		// get the quiz ans if avaiable
+		$quiz = $this->Questions_model->check_quiz($testid, $batch);
+
+		$a_score = (int)$quiz[0]['a'];
+		$b_score = (int)$quiz[0]['b'];
+
+		if($team == 'a'){
+			if($a_score > 0){
+				$a_score--;
+			}
+
+			$where = [
+				'testid' => $testid,
+				'batch' => $batch
+			];
+
+			$data = [
+				'a' => "$a_score"
+			];
+			$this->Questions_model->update_winner($where,$data);
+		}
+		else if($team == 'b'){
+			if($b_score > 0){
+				$b_score--;
+			}
+			
+			$where = [
+				'testid' => $testid,
+				'batch' => $batch
+			];
+
+			$data = [
+				'b' => "$b_score"
+			];
+			$this->Questions_model->update_winner($where,$data);
+		}
 		
 	}
 

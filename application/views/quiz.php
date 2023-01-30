@@ -99,11 +99,15 @@
 </div>
 
 <script>
+$(document).ready(function() {
+    localStorage.removeItem('turns');
+    localStorage.setItem('turns', 0)
+})
+
 $(function() {
 
     let url = window.location.href.split('/')
 
-    console.log(url.length)
 
     if (url.length == 6 || url.length == 7) {
 
@@ -112,7 +116,6 @@ $(function() {
         let modal = new bootstrap.Modal(elem)
         modal.show()
     }
-
 
     let batch = localStorage.getItem('batch')
     $('#batch').val(batch)
@@ -130,6 +133,10 @@ function checkAnswer() {
 
     let batch = localStorage.getItem('batch')
 
+    let turns = localStorage.getItem('turns')
+    turns++
+    localStorage.setItem('turns', turns)
+
     let data = {
         testid: '<?php echo $res['testid'] ?>',
         id: '<?php echo $res['id'] ?>',
@@ -142,8 +149,22 @@ function checkAnswer() {
         data = JSON.parse(data)
 
         if (data.response == 0) {
-            $('#turns').text("Team " + data.turns + " Turns...")
-            wrongAnswer();
+            if (turns == 2) {
+                let data = {
+                    id: '<?php echo $res['id'] ?>',
+                    testid: '<?php echo $res['testid'] ?>'
+                }
+
+                $.get('<?= base_url('panel/correct_ans') ?>', data).done((data) => {
+                    $('#turns').text('The correct answer is ' + data)
+                })
+
+                $('#submitbtn').hide()
+            } else {
+                $('#turns').text("Team " + data.turns + " Turns...")
+                wrongAnswer();
+            }
+
         } else {
             $('#turns').text(data.turns + ' is winner');
             $('#submitbtn').hide()
