@@ -212,10 +212,10 @@ function checkAnswer() {
             let loser = localStorage.getItem('loser')
             loser = JSON.parse(loser)
 
-            if (data.turns == 'a') {
+            if (data.turns.toLowerCase() == 'a') {
                 loser.a = 0
                 localStorage.setItem('loser', JSON.stringify(loser))
-            } else if (data.turns == 'b') {
+            } else if (data.turns.toLowerCase() == 'b') {
                 loser.b = 0
                 localStorage.setItem('loser', JSON.stringify(loser))
             }

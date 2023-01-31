@@ -62,7 +62,7 @@ $(document).ready(function() {
         b: 0
     }
 
-    localStorage.setItem('check', '1');
+
     localStorage.setItem('loser', JSON.stringify(loser))
 
     console.log('on start')
