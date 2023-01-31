@@ -55,11 +55,25 @@
 </div>
 
 <script>
+$(document).ready(function() {
+
+    let loser = {
+        a: 0,
+        b: 0
+    }
+
+    localStorage.setItem('check', '1');
+    localStorage.setItem('loser', JSON.stringify(loser))
+
+    console.log('on start')
+
+})
+
 function startTest() {
     let val = $('#selectedTest').find(':selected').val()
     let batchName = $('#batchName').val()
 
-    if (val != "Select Test" && batchName) {
+    if (val != "Select Quiz" && batchName) {
         window.location.href = '<?php echo base_url('panel/quiz/') ?>' + val
     }
 
@@ -71,7 +85,7 @@ function showModal() {
     let val = $('#selectedTest').find(':selected').val()
     let batchName = $('#batchName').val()
 
-    if (val != "Select Test" && batchName) {
+    if (val != "Select Quiz" && batchName) {
 
         localStorage.setItem('batch', batchName)
 

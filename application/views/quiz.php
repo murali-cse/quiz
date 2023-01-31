@@ -128,6 +128,17 @@ function wrongAnswer() {
     modal.show()
 }
 
+function reduceScore(testid, batch, team) {
+
+    var params = {
+        testid: testid,
+        batch: batch,
+        team: team
+    }
+
+    $.get('<?php echo base_url('panel/reduce') ?>', params)
+}
+
 function checkAnswer() {
     let val = $(':radio:checked').val();
 
@@ -150,22 +161,65 @@ function checkAnswer() {
 
         if (data.response == 0) {
             if (turns == 2) {
-                let data = {
+                let params = {
                     id: '<?php echo $res['id'] ?>',
                     testid: '<?php echo $res['testid'] ?>'
                 }
 
-                $.get('<?= base_url('panel/correct_ans') ?>', data).done((data) => {
+                $.get('<?= base_url('panel/correct_ans') ?>', params).done((data) => {
                     $('#turns').text('The correct answer is ' + data)
                 })
+
+                let loser = localStorage.getItem('loser')
+                loser = JSON.parse(loser)
+                if (data.turns.toLowerCase() == 'b') {
+                    loser.a = loser.a += 1
+                    localStorage.setItem('loser', JSON.stringify(loser))
+                    if (loser.a >= 2) {
+                        reduceScore('<?= $res['testid'] ?>', batch, 'a')
+                    }
+                } else if (data.turns.toLowerCase() == 'a') {
+                    loser.b = loser.b += 1
+                    localStorage.setItem('loser', JSON.stringify(loser))
+                    if (loser.b >= 2) {
+                        reduceScore('<?= $res['testid'] ?>', batch, 'b')
+                    }
+                }
 
                 $('#submitbtn').hide()
             } else {
                 $('#turns').text("Team " + data.turns + " Turns...")
+                let loser = localStorage.getItem('loser')
+                loser = JSON.parse(loser)
+                if (data.turns.toLowerCase() == 'b') {
+                    loser.a = loser.a += 1
+                    localStorage.setItem('loser', JSON.stringify(loser))
+                    if (loser.a >= 2) {
+                        reduceScore('<?= $res['testid'] ?>', batch, 'a')
+                    }
+                } else if (data.turns.toLowerCase() == 'a') {
+                    loser.b = loser.b += 1
+                    localStorage.setItem('loser', JSON.stringify(loser))
+                    if (loser.b >= 2) {
+                        reduceScore('<?= $res['testid'] ?>', batch, 'b')
+                    }
+                }
                 wrongAnswer();
             }
 
         } else {
+
+            let loser = localStorage.getItem('loser')
+            loser = JSON.parse(loser)
+
+            if (data.turns == 'a') {
+                loser.a = 0
+                localStorage.setItem('loser', JSON.stringify(loser))
+            } else if (data.turns == 'b') {
+                loser.b = 0
+                localStorage.setItem('loser', JSON.stringify(loser))
+            }
+
             $('#turns').text(data.turns + ' is winner');
             $('#submitbtn').hide()
         }

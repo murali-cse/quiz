@@ -266,7 +266,7 @@ class Panel extends CI_Controller {
 
 		// get the quiz ans if avaiable
 		$quiz = $this->Questions_model->check_quiz($testid, $batch);
-
+		
 		$a_score = (int)$quiz[0]['a'];
 		$b_score = (int)$quiz[0]['b'];
 
@@ -283,7 +283,9 @@ class Panel extends CI_Controller {
 			$data = [
 				'a' => "$a_score"
 			];
-			$this->Questions_model->update_winner($where,$data);
+			$res= $this->Questions_model->update_winner($where,$data);
+
+			echo json_encode($res);
 		}
 		else if($team == 'b'){
 			if($b_score > 0){
@@ -298,7 +300,8 @@ class Panel extends CI_Controller {
 			$data = [
 				'b' => "$b_score"
 			];
-			$this->Questions_model->update_winner($where,$data);
+			$res = $this->Questions_model->update_winner($where,$data);
+			echo json_encode($res);
 		}
 		
 	}
