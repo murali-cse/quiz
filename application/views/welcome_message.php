@@ -2,7 +2,7 @@
     <div class="container ">
         <div class="h-100" style="display:flex;justify-content:center;align-items:center">
             <div class="welcome-card" style="padding:7%">
-                <h1>Welcome to Quizical Suspects</h1>
+                <h1 class="text-center">Welcome</h1>
                 <div class='row'>
                     <H4 class="mt-5 mb-2 text-center">Login/Register as</H4>
                     <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-3'>

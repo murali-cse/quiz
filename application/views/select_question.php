@@ -14,7 +14,7 @@
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 welcome-card p-5">
                 <h4 class="pb-3 text-capitalize text-center">Choose Quiz</h4>
                 <div class="mb-3 ">
-                    <label for="batchName" class="form-label">Batch Name</label>
+                    <label for="batchName" class="form-label">Class Code</label>
                     <input type="text" class="form-control" id="batchName" aria-describedby="batch name" id="batchName">
                 </div>
                 <select id="selectedTest" class="form-select">
