@@ -12,12 +12,13 @@
             <div class="row mb-3 mt-5">
                 <div class="d-flex justify-content-between">
                     <button type="button" class="btn btn-primary" onclick="openTeamModal()">
-                        Let's Play
+                        Setup Session
                     </button>
                     <button type="button" class="btn btn-warning" onclick="showModal()">
                         Add New Test
                     </button>
                 </div>
+
             </div>
 
             <!-- quiz modal -->
@@ -29,7 +30,7 @@
                             <h5 class="modal-title" id="staticBackdropLabel">Continue..</h5>
                         </div>
                         <div class="modal-body">
-                            <p>Are you sure, Do you want to create Quiz?</p>
+                            <p>Are you want to play a game?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>

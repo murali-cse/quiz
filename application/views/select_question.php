@@ -9,26 +9,38 @@
 
 
 <div class="gq-background">
-    <div class="container d-flex justify-content-center align-items-center" style="height:95%">
+    <div class="container d-flex justify-content-center align-items-center" style="height:80%">
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 welcome-card p-5">
-                <h4 class="pb-3 text-capitalize text-center">Choose Quiz</h4>
-                <div class="mb-3 ">
-                    <label for="batchName" class="form-label">Class Code</label>
-                    <input type="text" class="form-control" id="batchName" aria-describedby="batch name" id="batchName">
-                </div>
-                <select id="selectedTest" class="form-select">
-                    <option selected>Select Quiz</option>
-                    <?php foreach($res as $result){ ?>
-                    <option value='<?php echo $result['id'] ?>'><?php echo $result['testname'] ?></option>
-                    <?php } ?>
-                </select>
-                <div class="text-center mt-4">
-                    <button class="btn btn-primary <?php echo count($res) == 0 ? 'disabled' : '' ?>"
-                        onclick="showModal()">
-                        Begin Test
-                    </button>
-                </div>
+                <form action="" method="post">
+                    <h4 class="pb-3 text-capitalize text-center">Choose Quiz</h4>
+                    <div class="mb-3 ">
+                        <label for="classCode" class="form-label">Class Code</label>
+                        <input type="text" class="form-control" id="classCode" aria-describedby="batch name"
+                            name="classCode">
+                    </div>
+                    <select id="selectedTest" class="form-select mb-3" name="quiz">
+                        <option selected>Select Quiz</option>
+                        <?php foreach($res as $result){ ?>
+                        <option value='<?php echo $result['id'] ?>'><?php echo $result['testname'] ?></option>
+                        <?php } ?>
+                    </select>
+                    <div class="mb-3">
+                        <label for="batchName" class="form-label">Player One Id</label>
+                        <input type="text" class="form-control" id="batchName" aria-describedby="batch name"
+                            id="batchName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="batchName" class="form-label">Player Two Id</label>
+                        <input type="text" class="form-control" id="batchName" aria-describedby="batch name"
+                            id="batchName">
+                    </div>
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary <?php echo count($res) == 0 ? 'disabled' : '' ?>">
+                            Create a Session
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
