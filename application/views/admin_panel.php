@@ -109,6 +109,7 @@
                 </div>
             </div>
 
+            <h3 style="margin-top: 20px;" class="mb-2">Questions</h3>
             <div class="table-responsive welcome-card">
                 <table class="table table-bordered" id="adminTable">
                     <thead>
@@ -134,6 +135,33 @@
                                         onclick="editTestModal('<?php echo $result['id'] ?>','<?php echo $result['testname'] ?>', '<?php echo $result['teachername']?>')">
                                         Edit </button>
                                 </div>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 20px;" class="mb-2">Game Sessions</h3>
+            <div class="table-responsive welcome-card">
+
+                <table class="table table-bordered" id="adminTable">
+                    <thead>
+                        <th class="w-25 text-center">Class Code</th>
+                        <th class="w-25 text-center">Quiz</th>
+                        <th class="w-25 text-center">Player One</th>
+                        <th class="w-25 text-center">Player Two</th>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        foreach($game as $result){
+                    ?>
+                        <tr>
+                            <td class="text-center align-middle text-capitalize"><?php echo $result->class_code ?>
+                            </td>
+                            <td class="text-center align-middle text-capitalize"><?php echo $result->testname ?>
+                            <td class="text-center align-middle text-capitalize"><?php echo $result->player_one ?>
+                            <td class="text-center align-middle text-capitalize"><?php echo $result->player_two ?>
                             </td>
                         </tr>
                         <?php } ?>

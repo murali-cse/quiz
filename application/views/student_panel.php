@@ -36,14 +36,16 @@
             <div class="col-lg-6 col-md-12">
                 <div style="border: 1px solid grey;padding: 3rem">
                     <h6 class="pb-3 text-center">Join a Class</h6>
-                    <input type="text" class="form-control" id="quizClassCode" aria-describedby="quizClassCode"
-                        placeholder="Class Code">
-                    <div class="text-center mt-4">
-                        <button class="btn btn-primary <?php echo count($res) == 0 ? 'disabled' : '' ?>"
-                            onclick="startTest()">
-                            Begin Test
-                        </button>
-                    </div>
+                    <form action="<?= base_url('panel/student/game') ?>" method="get">
+                        <input type="text" class="form-control" id="quizClassCode" aria-describedby="quizClassCode"
+                            placeholder="Class Code" name="classCode" required>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                Begin Test
+                            </button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>

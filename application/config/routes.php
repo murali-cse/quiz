@@ -57,6 +57,8 @@ $route['panel/insertqest/:id'] = 'panel/insertqest';
 $route['panel/student_ans/:id'] = 'panel/student_ans';
 $route['panel/quiz/:id/:current_quest'] = 'panel/quiz';
 
+$route['panel/student/game'] = 'game/play';
+
 
 
 $route['404_override'] = '';

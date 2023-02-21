@@ -7,6 +7,7 @@ class Panel extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Test_model');
 		$this->load->model('Questions_model');
+		$this->load->model('Game_model');
 	}
 
 	public function index()
@@ -51,9 +52,12 @@ class Panel extends CI_Controller {
 	public function admin(){
 		
 		$res = $this->Test_model->get_test();
+		$game = $this->Game_model->get();
 
 		$data = [
-			'res' => $res
+			'res' => $res,
+			'game' => $game
+
 		];
 
 		// session 
