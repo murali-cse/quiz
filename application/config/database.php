@@ -74,16 +74,16 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 // production 
-// $hostname = '51.222.48.180';
-// $username = 'quizgame_db';
-// $password = 'quizgamescore';
-// $database = 'quizgame_db';
+$hostname = '51.222.48.180';
+$username = 'quizgame_db';
+$password = 'quizgamescore';
+$database = 'quizgame_db';
 
 // development
-$hostname = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'quiz';
+// $hostname = 'localhost';
+// $username = 'root';
+// $password = '';
+// $database = 'quiz';
 
 
 $db['default'] = array(
