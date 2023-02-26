@@ -8,6 +8,7 @@
 	background-image: url(/assets/image/baseball1.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
 }
 
 .welcome-card {
@@ -19,17 +20,20 @@
 	background-image: url(/assets/image/bb2.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
 }
 
 .dashboard-background {
 	background-image: url(/assets/image/bb5.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
 }
 
 .gq-background {
 	background-image: url(/assets/image/bb3.jpeg);
 	background-repeat: no-repeat;
+	background-attachment: fixed;
 	background-size: cover;
 }
 
@@ -37,4 +41,5 @@
 	background-image: url(/assets/image/bb4.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
 }
