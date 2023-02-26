@@ -9,7 +9,7 @@
 
 
 <div class="gq-background">
-    <div class="container d-flex justify-content-center align-items-center" style="height:80%">
+    <div class="container d-flex justify-content-center align-items-center" style="height:100%">
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 welcome-card p-4">
                 <form action="<?= base_url('game/add_game') ?>" method="post">
@@ -19,7 +19,7 @@
                         <input type="text" class="form-control" id="classCode" aria-describedby="batch name"
                             name="classCode" required>
                     </div>
-                    <select id="selectedTest" class="form-select mb-3" name="quiz">
+                    <select id="selectedTest" class="form-select mb-3" name="quiz" style="width:30rem">
                         <option selected>Select Quiz</option>
                         <?php foreach($res as $result){ ?>
                         <option value='<?php echo $result['id'] ?>'><?php echo $result['testname'] ?></option>
@@ -54,7 +54,8 @@
                 Class code already exists
             </div>
             <?php } else { ?>
-            <div role="alert" class="alert alert-success">
+            <div role="alert"
+                class="alert alert-success <?php echo $this->session->flashdata('message') === 'error' ? 'd-block' : 'd-none' ?>">
                 Something went wrong. Please try again later.
             </div>
             <?php } ?>

@@ -30,7 +30,7 @@
                             <h5 class="modal-title" id="staticBackdropLabel">Continue..</h5>
                         </div>
                         <div class="modal-body">
-                            <p>Are you want to play a game?</p>
+                            <p>Are you want to create a new session?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -113,7 +113,7 @@
             <div class="table-responsive welcome-card">
                 <table class="table table-bordered" id="adminTable">
                     <thead>
-                        <th class="w-25 text-center">Test Name</th>
+                        <th class="w-25 text-center">Course Name</th>
                         <th class="w-25 text-center">Teacher Name</th>
                         <th class="w-25 text-center">Actions</th>
                     </thead>
